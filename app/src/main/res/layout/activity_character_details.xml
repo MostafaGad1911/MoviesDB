@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.activities.CharacterDetails">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/marvelComicsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comics"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/marvelComicsRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/movie_item"
+                app:layout_constraintTop_toBottomOf="@id/marvelComicsTxt"/>
+
+            <TextView
+                android:id="@+id/marvelEmptyComicsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_comics_found"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:visibility="visible"
+                android:layout_margin="20dp"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelComicsTxt"
+                app:layout_constraintBottom_toTopOf="@id/marvelEventsTxt"/>
+
+            <TextView
+                android:id="@+id/marvelEventsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/events"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelComicsRV" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/marvelEventsRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/movie_item"
+                app:layout_constraintTop_toBottomOf="@id/marvelEventsTxt"/>
+
+            <TextView
+                android:id="@+id/marvelEmptyEventsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_events_found"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:visibility="visible"
+                android:elevation="10dp"
+                android:layout_margin="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelEventsTxt"
+                app:layout_constraintBottom_toTopOf="@id/marvelSeriesTxt"/>
+
+            <TextView
+                android:id="@+id/marvelSeriesTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/series"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelEventsRV" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/marvelSeriesRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/movie_item"
+                app:layout_constraintTop_toBottomOf="@id/marvelSeriesTxt"/>
+
+            <TextView
+                android:id="@+id/marvelEmptySeriesTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_series_found"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:visibility="visible"
+                android:elevation="10dp"
+                android:layout_margin="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelSeriesTxt"
+                app:layout_constraintBottom_toTopOf="@id/marvelStoriesTxt"/>
+
+            <TextView
+                android:id="@+id/marvelStoriesTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stories"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelSeriesRV" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/marvelStoriesRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/movie_item"
+                app:layout_constraintTop_toBottomOf="@id/marvelStoriesTxt"/>
+
+
+            <TextView
+                android:id="@+id/marvelEmptyStoriesTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_stories_found"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="10dp"
+                android:elevation="10dp"
+                android:visibility="visible"
+                android:layout_margin="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marvelStoriesTxt"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/detailsProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="8dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/black"
+        android:indeterminateTintMode="src_in"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</FrameLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MarvelCharacters</string>
+    <string name="marvel_app">Marvel App</string>
+    <string name="movie_character_name">Movie Character Name</string>
+    <string name="comics">Comics</string>
+    <string name="series">Series</string>
+    <string name="stories">Stories</string>
+    <string name="no_comics_found">No comics found</string>
+    <string name="events">Events</string>
+    <string name="no_events_found">No Events Found</string>
+    <string name="no_series_found">No Series Found</string>
+    <string name="no_stories_found">No Stories Found</string>
+    <string name="rate">rate</string>
+    <string name="release_date">release date</string>
+    <string name="movies_app">Movies App</string>
+    <string name="overview">overview</string>
+    <string name="original_lang">Language</string>
+</resources>
