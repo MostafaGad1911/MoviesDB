@@ -4,10 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import mostafagad.projects.movies.domain.model.MovieModel
 import mostafagad.projects.movies.domain.repository.MoviesRepo
@@ -25,32 +22,34 @@ class MoviesVM @Inject constructor(private val marvelRepo: MoviesRepo) : ViewMod
     init {
         getAllMovies()
     }
+
     private fun getAllMovies() = viewModelScope.launch(Dispatchers.IO) {
-        invoke().collect{
-            when(it){
+        invoke().collect {
+            when (it) {
                 is Response.Success -> {
-                    moviesDbState.value = MoviesListState(moviesList = it.data?: emptyList())
+                    moviesDbState.value = MoviesListState(moviesList = it.data ?: emptyList())
                 }
                 is Response.Loading -> {
                     moviesDbState.value = MoviesListState(isLoading = true)
                 }
                 is Response.Error -> {
-                    moviesDbState.value = MoviesListState(error = it.message?:"An Unexpected Error")
+                    moviesDbState.value =
+                        MoviesListState(error = it.message ?: "An Unexpected Error")
                 }
             }
         }
 
     }
 
-    fun invoke(): Flow<Response<List<MovieModel>>> =
-        flow {
-            try {
-                emit(Response.Loading())
-                val list = marvelRepo.getAllMovies()
-                emit(Response.Success(list.results))
-            }catch (e:Exception){
-                emit(Response.Error(e.printStackTrace().toString()))
+    fun invoke(): Flow<Response<ArrayList<MovieModel>>> = flow {
+        try {
+            emit(Response.Loading())
+            val list = marvelRepo.getAllMovies()
+            emit(Response.Success(list.results))
+        } catch (e: Exception) {
+            emit(Response.Error(e.printStackTrace().toString()))
 
-            }
         }
+    }.distinctUntilChanged()
+
 }
