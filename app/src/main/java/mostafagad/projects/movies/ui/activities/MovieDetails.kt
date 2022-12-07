@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import mostafagad.projects.movies.R
@@ -23,7 +24,7 @@ class MovieDetails : AppCompatActivity(), OnClickListener {
     @Inject
     lateinit var dataSource: MoviesDataSource
 
-    lateinit var movies: List<MovieEntity>
+    var movies: ArrayList<MovieEntity> = ArrayList()
 
     private var movieFav: Boolean? = false
 
@@ -40,25 +41,35 @@ class MovieDetails : AppCompatActivity(), OnClickListener {
         setContentView(R.layout.activity_movie_details)
         initData()
         bindDetails(item = movie)
+        handleOnBack()
         Log.i("MOVIES", "$movies")
 
     }
 
     private fun initData() {
-        movies = dataSource.getMovies()
+        movies.clear()
+        movies.addAll(dataSource.getMovies())
         movieFav = if (movies.isEmpty()) false else movies.find { it.id == movie.id }?.fav
-    }
-
-
-    private fun bindDetails(item: MovieModel) {
-        moviesMovieDetailsBinding.movie = item
-        moviesMovieDetailsBinding.favMovieImg.setOnClickListener(this)
-
         if (movieFav == false || movieFav == null) {
             moviesMovieDetailsBinding.favMovieImg.setBackgroundResource(R.drawable.unfav)
         } else {
             moviesMovieDetailsBinding.favMovieImg.setBackgroundResource(R.drawable.ic_fav)
         }
+    }
+
+    private fun handleOnBack(){
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@MovieDetails , Movies::class.java))
+            }
+        })
+
+    }
+
+    private fun bindDetails(item: MovieModel) {
+        moviesMovieDetailsBinding.movie = item
+        moviesMovieDetailsBinding.favMovieImg.setOnClickListener(this)
+
     }
 
     private inline fun <reified T : Serializable> Intent.serializable(key: String): T? = when {
@@ -73,17 +84,14 @@ class MovieDetails : AppCompatActivity(), OnClickListener {
 
                 val movieEntity = MovieEntity()
                 movieEntity.id = movie.id
-                movieEntity.fav = !movieFav!!
+                movieEntity.fav = movieFav != true
                 if (dataSource.movieFound(movieId = movie.id).isEmpty()) {
                     dataSource.addMovie(movieEntity = movieEntity)
                     moviesMovieDetailsBinding.favMovieImg.setBackgroundResource(R.drawable.ic_fav)
+
                 }else{
                     dataSource.updateMovie(movieEntity = movieEntity)
                     initData()
-                    if (movieFav == false)
-                        moviesMovieDetailsBinding.favMovieImg.setBackgroundResource(R.drawable.ic_fav)
-                    else
-                        moviesMovieDetailsBinding.favMovieImg.setBackgroundResource(R.drawable.unfav)
 
 
                 }

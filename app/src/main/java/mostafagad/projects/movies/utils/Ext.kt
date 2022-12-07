@@ -12,10 +12,6 @@ import mostafagad.projects.movies.R
 
 object Ext {
 
-    fun String.loadImg(img: ImageView, ctx: Context) {
-        Glide.with(ctx).load(this).placeholder(R.drawable.progress_animation)
-            .into(img)
-    }
 
     fun String.toast(ctx: Context) =
         Toast.makeText(ctx, this, Toast.LENGTH_LONG).show()
@@ -32,7 +28,7 @@ object Ext {
     @BindingAdapter("app:loadImage")
     fun loadPictureFromUrl(ivUserImage: ImageView, path: String?) {
         (path != null).let {
-            if (it){
+            if (it) {
                 Glide.with(ivUserImage.context)
                     .load("https://image.tmdb.org/t/p/original/$path")
                     .placeholder(R.drawable.loading_image)
@@ -45,5 +41,16 @@ object Ext {
         }
     }
 
-
+    @JvmStatic //https://stackoverflow.com/questions/58049179/required-databindingcomponent-is-null-in-class-agentdetailsactivitybindingimpl
+    @BindingAdapter("app:applyFav")
+    fun applyFav(ivUserImage: ImageView, fav: Boolean?=false) {
+        Glide.with(ivUserImage.context)
+            .load(if (fav == true) R.drawable.ic_fav else R.drawable.unfav)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .override(45, 45)
+            .into(ivUserImage)
+    }
 }
+
+
